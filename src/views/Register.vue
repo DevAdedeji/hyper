@@ -8,7 +8,7 @@
     <div class="register-form">
       <h1 class="title">Hyper</h1>
 
-      <form id="form" @submit="signUp">
+      <form id="form" @submit.prevent="signUp">
         <h2>Register An Account</h2>
         <p>Register To Start Using Hyper</p>
 
@@ -20,12 +20,12 @@
 
         <div class="firstName">
           <label for="firstName">Your First Name * </label>
-          <input type="text" id="firstName" placeholder="Enter Your First Name"  ref="firstname" v-model="userInfo.firstName" required>
+          <input type="text" id="firstName" placeholder="Enter Your First Name"  ref="firstname" v-model="userInfo.first_name" required>
         </div>
 
         <div class="surname">
           <label for="surname">Your Last Name *</label>
-          <input type="text" id="surname" placeholder="Enter Your Surname" ref="surname" v-model="userInfo.surname" required>
+          <input type="text" id="surname" placeholder="Enter Your Surname" ref="surname" v-model="userInfo.last_name" required>
         </div>
 
         <div class="email">
@@ -40,12 +40,12 @@
 
         <div class="confirmPassword">
           <label for="password">Confirm Password *</label>
-          <input type="password" id="confirmPassword" placeholder="Enter Password Again" ref="confirmPassword" v-model="userInfo.confirmPassword" required>
+          <input type="password" id="confirmPassword" placeholder="Enter Password Again" ref="confirmPassword" required>
         </div>
         <p class="error">Passwords should be the same</p>
         <p class="user-existing" v-show="userExist">A User With The Username Already Exist</p>
         <br>
-        <button type="submit"><p v-show="signUpText">Sign Up</p>
+        <button type="submit"><p v-show="beforeSignIn">Sign Up</p>
           <div class="sk-chase" v-show="currentlyLoading">
             <div class="sk-chase-dot"></div>
             <div class="sk-chase-dot"></div>
@@ -68,50 +68,64 @@
       <p>&copy; 2022 Hyper</p>
       <br>
     </footer>
-    <button @click="gotoLoginPage">Goto</button>
   </section>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
 
 export default {
   data(){
     return{
       userInfo:{
-        username: '',
-        firstName: '',
-        surname: '',
+        first_name: '',
+        last_name: '',
         email: '', 
-        password: ''
+        username: '',
+        password: '',
       },
+      beforeSignIn:true,
+      currentlyLoading: false,
+      userExist: false,
     }
   },
   methods:{
-    signUp(e){
-      e.preventDefault();
-      if(this.$refs.password.value === this.$refs.confirmPassword.value){ 
-        //The Register function (API Call) 
-        this.createUser(this.userInfo)
-        this.textLoading = false
-        if(this.userRegistration == true){
-          this.$router.push('/login')
-        }
+    signUp(){
+      if(this.$refs.password.value === this.$refs.confirmPassword.value){
+        this.currentlyLoading = true
+        this.beforeSignIn = false
+        this.$store.dispatch('post', {
+                endpoint: 'register',
+                details: this.userInfo
+        })
+        .then(response =>{
+          if(response.status >= 201 && response.status <= 299){
+            this.$router.push('/login')
+          }
+        })
+        .catch(error =>{
+          if(error){
+            this.userExist = true;
+            this.currentlyLoading = false
+            this.beforeSignIn = true
+            this.userInfo.first_name = ''
+            this.userInfo.last_name = ''
+            this.userInfo.email = ''
+            this.userInfo.username = ''
+            this.userInfo.password = ''
+            this.$refs.confirmPassword.value = ''
+            setTimeout(()=>{this.userExist = false}, 2000)
+          }
+        })
       }
       else{
-        document.querySelector('.error').style.display="block"
+        document.querySelector('.error').style.display = "block"
+        this.$refs.password.value = ''
+        this.$refs.confirmPassword.value = ''
         setTimeout(()=>{
-            document.querySelector('.error').style.display="none"
+          document.querySelector('.error').style.display = "none"
         }, 2000)
       }
-    },
-    ...mapActions(['createUser']),
-    gotoLoginPage(){
-        this.$router.push('/login');
-    },
-  },
-  computed:{
-     ...mapGetters(['userExist', 'currentlyLoading', 'signUpText', 'userRegistration']),
+    }
   }
 }
 

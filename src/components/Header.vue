@@ -61,7 +61,7 @@
               <h2>Stronger <span>Banking,</span> Greater Service</h2>
               <p>Send and receive money instantly to anyone with a phone number, email address or bank account.</p>
               <div class="links">
-                  <a href="#" id="start">Start Transaction</a>
+                  <a href="/register" id="start">Start Transaction</a>
                   <a href="#about" class="about">About Us</a>
               </div>
           </div>
