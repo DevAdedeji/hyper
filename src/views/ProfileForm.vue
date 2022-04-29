@@ -41,12 +41,13 @@
               <label>Bank Name</label>
               <select v-model="userInfo.bank_name" required>
                 <option value=""></option>
-                <option value="GTB">Guaranty Trust Bank</option>
-                <option value="First Bank">First Bank</option>
-                <option value="Access Bank">Access Bank</option>
-                <option value="UBA">United Bank Of Africa</option>
-                <option value="Fidelity Bank">Fidelity Bank</option>
-                <option value="Kuda Bank">Kuda Bank</option>
+                <option
+                  v-for="country in getCountries"
+                  :key="country.id"
+                  :value="country.name"
+                >
+                  {{ country.name }}
+                </option>
               </select>
             </div>
 
@@ -89,6 +90,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -108,17 +110,28 @@ export default {
   },
   methods: {
     createProfile() {
+      console.log(this.userInfo);
       let config = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Token ${this.token}`,
         },
       };
-      this.submitText = false;
-      this.currentlyLoading = true;
-      axios.psot(this.link, this.userInfo, config);
+      // this.submitText = false;
+      // this.currentlyLoading = true;
+      axios
+        .post(this.link, this.userInfo, config)
+        .then((res) => {
+          if (res.statusText === "Created") {
+            this.$router.push("/profile");
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
   },
+  computed: { ...mapGetters(["getCountries"]) },
 };
 </script>
 
