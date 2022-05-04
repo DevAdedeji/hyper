@@ -101,7 +101,7 @@ export default {
           } else {
             const user_token = response.data.token;
             localStorage.setItem("hyperToken", user_token);
-            this.$router.push("/profile");
+            this.$router.push("/dashboard");
           }
         })
         .catch((error) => {

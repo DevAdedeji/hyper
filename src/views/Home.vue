@@ -17,11 +17,11 @@ import Footer from "../components/Footer.vue";
 
 export default {
   components: { Header, About, Features, Newsletter, Footer },
-  beforeMount() {
+  created() {
     let token = localStorage.getItem("hyperToken");
-    // if (token) {
-    //   this.$router.push("/profile");
-    // }
+    if (token) {
+      this.$router.push("/dashboard");
+    }
   },
 };
 </script>
