@@ -84,8 +84,7 @@ export default {
   color: #fff;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-
+  justify-content: center;
   .con {
     width: 100%;
     display: flex;
@@ -142,9 +141,10 @@ export default {
 
 @media (max-width: 600px) {
   .main {
-    height: 95vh;
+    min-height: 100vh;
+    align-items: flex-start;
     .con {
-      padding-top: 0;
+      padding: 0;
       .menubar {
         width: 100%;
         display: flex;
@@ -162,6 +162,7 @@ export default {
       }
       form {
         width: 90%;
+        margin-top: 30px;
       }
     }
   }
