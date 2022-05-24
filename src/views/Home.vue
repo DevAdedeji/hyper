@@ -3,7 +3,7 @@
     <Header />
     <Features />
     <About />
-    <Newsletter />
+    <!-- <Newsletter /> -->
     <Footer />
   </div>
 </template>
