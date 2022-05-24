@@ -132,6 +132,9 @@ export default {
     },
   },
   computed: { ...mapGetters(["getCountries"]) },
+  created() {
+    document.title = "Create Your Profile || Hyper";
+  },
 };
 </script>
 

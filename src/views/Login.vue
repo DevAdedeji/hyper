@@ -118,6 +118,9 @@ export default {
         });
     },
   },
+  created() {
+    document.title = "Login || Hyper";
+  },
 };
 </script>
 

@@ -10,7 +10,13 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="/dashboard">
+            <img src="../assets/money.png" />
+            <p>Dashboard</p>
+          </a>
+        </li>
+        <li>
+          <a href="/transfer">
             <img src="../assets/money.png" />
             <p>Transfer</p>
           </a>
@@ -33,7 +39,7 @@ export default {};
 <style lang="scss" scoped>
 .container {
   width: 20%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #0b0547;
   display: flex;
   flex-direction: column;
@@ -72,7 +78,7 @@ export default {};
             width: 10%;
           }
           color: #fff;
-          font-size: 30px;
+          font-size: 20px;
           display: flex;
           align-items: center;
           justify-content: center;

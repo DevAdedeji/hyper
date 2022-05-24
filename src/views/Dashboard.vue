@@ -9,7 +9,10 @@
           <img src="../assets/icon-hamburger.svg" alt="" @click="toggleMenu" />
         </div>
         <div class="card">
-          <div class="logo">Hyper</div>
+          <div class="logo">
+            <p>Hyper</p>
+            <img src="../assets/mastercard-logo.png" alt="" />
+          </div>
           <div class="details">
             <p>Account Balance:</p>
             <p class="bal">₦{{ balance.toLocaleString() }}</p>
@@ -67,6 +70,9 @@ export default {
     this.getDetails();
   },
   components: { SideNav },
+  created() {
+    document.title = "Dashboard || Hyper";
+  },
 };
 </script>
 
@@ -135,6 +141,9 @@ export default {
         padding: 20px;
         .logo {
           color: #e0e0e0;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
         }
         .details {
           padding-top: 50px;
