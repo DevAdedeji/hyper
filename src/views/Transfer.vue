@@ -162,7 +162,7 @@ export default {
       }
       form {
         width: 90%;
-        margin-top: 30px;
+        margin: 30px 0;
       }
     }
   }
