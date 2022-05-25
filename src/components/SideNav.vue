@@ -151,7 +151,7 @@ export default {
         gap: 30px;
         li {
           padding: 20px 0;
-          .logout,
+          .logout p,
           a {
             font-size: 15px;
           }
