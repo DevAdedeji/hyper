@@ -66,7 +66,7 @@ export default {
         .then((response) => {
           if (response.status == 200) {
             let data = response.data;
-            this.balance = data.balance / 100;
+            this.balance = data.balance;
           }
         })
         .catch((err) => {
