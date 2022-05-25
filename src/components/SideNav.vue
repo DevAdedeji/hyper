@@ -116,8 +116,24 @@ export default {
         gap: 30px;
         li {
           padding: 20px 0;
+          .logout,
           a {
             font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 901px) {
+  .container {
+    nav {
+      ul {
+        li {
+          .logout,
+          a {
+            font-size: 16px;
           }
         }
       }
@@ -135,6 +151,7 @@ export default {
         gap: 30px;
         li {
           padding: 20px 0;
+          .logout,
           a {
             font-size: 15px;
           }

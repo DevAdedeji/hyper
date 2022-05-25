@@ -96,11 +96,11 @@ export default {
           details: this.userInfo,
         })
         .then((response) => {
+          const user_token = response.data.token;
+          localStorage.setItem("hyperToken", user_token);
           if (response.data.profile_empty === true) {
             this.$router.push("/Create_Profile");
           } else {
-            const user_token = response.data.token;
-            localStorage.setItem("hyperToken", user_token);
             this.$router.push("/dashboard");
           }
         })

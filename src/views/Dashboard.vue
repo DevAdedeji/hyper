@@ -53,9 +53,20 @@ export default {
           if (response.status == 200) {
             this.loading = false;
             let data = response.data;
+
             this.username = data.user;
             this.accountNum = data.account_number;
-            this.balance = data.names[0].balance / 100;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      await axios
+        .get(this.link + "bal", config)
+        .then((response) => {
+          if (response.status == 200) {
+            let data = response.data;
+            this.balance = data.balance / 100;
           }
         })
         .catch((err) => {

@@ -110,20 +110,19 @@ export default {
   },
   methods: {
     createProfile() {
-      console.log(this.userInfo);
       let config = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Token ${this.token}`,
         },
       };
-      // this.submitText = false;
-      // this.currentlyLoading = true;
+      this.submitText = false;
+      this.currentlyLoading = true;
       axios
         .post(this.link, this.userInfo, config)
         .then((res) => {
           if (res.statusText === "Created") {
-            this.$router.push("/profile");
+            this.$router.push("/dashboard");
           }
         })
         .catch((err) => {
