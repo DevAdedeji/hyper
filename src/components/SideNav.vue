@@ -4,7 +4,7 @@
     <nav>
       <ul>
         <li>
-          <a href="#">
+          <a href="/">
             <img src="../assets/home.png" />
             <p>Home</p>
           </a>
@@ -22,10 +22,10 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <p class="logout" @click="logout">
             <img src="../assets/settings.png" />
-            <p>Settings</p>
-          </a>
+            <p>Logout</p>
+          </p>
         </li>
       </ul>
     </nav>
@@ -33,7 +33,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    logout() {
+      localStorage.removeItem("hyperToken");
+      window.location.replace("/");
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -70,9 +77,20 @@ export default {};
       li {
         list-style: none;
         padding: 30px 0;
-        a {
+        .logout {
+          color: #fff;
+          font-size: 20px;
           display: flex;
-          align-items: flex-start;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          img {
+            width: 10%;
+          }
+          cursor: pointer;
+        }
+        a {
+          text-decoration: none;
           gap: 10px;
           img {
             width: 10%;
