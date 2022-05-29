@@ -37,6 +37,7 @@ export default {
       reason: "",
       amount: "",
       error: "",
+      link: process.env.VUE_APP_ENDPOINT + "trans",
       token: localStorage.getItem("hyperToken"),
     };
   },
@@ -55,8 +56,9 @@ export default {
         reason: `${this.reason}`,
         tags: `${this.username}`,
       };
+
       axios
-        .post(process.env.VUE_APP_ENDPOINT + "trans", details, config)
+        .post(this.link, details, config)
         .then((response) => {
           console.log(response);
           this.$refs.btn.textContent = "Submit";
