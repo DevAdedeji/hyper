@@ -69,7 +69,9 @@ export default {
           if (response.status === 202) {
             this.successful = true;
           }
-          this.$router.push("/dashboard");
+          this.username = "";
+          this.amount = "";
+          this.reason = "";
         })
         .catch((err) => {
           console.log(err);
