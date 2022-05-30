@@ -47,7 +47,7 @@
               Please enter the correct username and password
             </p>
             <br />
-            <button type="submit">
+            <button type="submit" :disabled="isDisabled">
               <p v-show="signInText">Sign In</p>
               <div class="sk-chase" v-show="currentlyLoading">
                 <div class="sk-chase-dot"></div>
@@ -84,12 +84,14 @@ export default {
       },
       signInText: true,
       currentlyLoading: false,
+      isDisabled: false,
     };
   },
   methods: {
     logIn() {
       this.signInText = false;
       this.currentlyLoading = true;
+      this.isDisabled = true;
       this.$store
         .dispatch("post", {
           endpoint: "token",
@@ -106,6 +108,7 @@ export default {
         })
         .catch((error) => {
           if (error) {
+            this.isDisabled = false;
             document.querySelector(".error").style.display = "block";
             this.userInfo.username = "";
             this.userInfo.password = "";

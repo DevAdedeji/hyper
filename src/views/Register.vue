@@ -94,7 +94,7 @@
               A User With The Username Already Exist
             </p>
             <br />
-            <button type="submit">
+            <button type="submit" :disabled="isDisabled">
               <p v-show="beforeSignIn">Sign Up</p>
               <div class="sk-chase" v-show="currentlyLoading">
                 <div class="sk-chase-dot"></div>
@@ -134,6 +134,7 @@ export default {
       beforeSignIn: true,
       currentlyLoading: false,
       userExist: false,
+      isDisabled: false,
     };
   },
   methods: {
@@ -141,6 +142,7 @@ export default {
       if (this.$refs.password.value === this.$refs.confirmPassword.value) {
         this.currentlyLoading = true;
         this.beforeSignIn = false;
+        this.isDisabled = true;
         this.$store
           .dispatch("post", {
             endpoint: "register",
@@ -153,6 +155,7 @@ export default {
           })
           .catch((error) => {
             if (error) {
+              this.isDisabled = false;
               this.userExist = true;
               this.currentlyLoading = false;
               this.beforeSignIn = true;

@@ -21,14 +21,16 @@
           <textarea cols="30" rows="5" v-model="reason"></textarea>
         </div>
         <p class="error" v-show="error.length > 0">{{ error }}</p>
-        <button type="submit" ref="btn">Submit</button>
+        <button type="submit" ref="btn" :disabled="isDisabled">Submit</button>
       </form>
     </div>
   </div>
+  <successful v-if="successful" @closePopUp="closePopup" />
 </template>
 
 <script>
 import SideNav from "../components/SideNav.vue";
+import successful from "../components/successful.vue";
 import axios from "axios";
 export default {
   data() {
@@ -39,12 +41,15 @@ export default {
       error: "",
       link: process.env.VUE_APP_ENDPOINT + "trans",
       token: localStorage.getItem("hyperToken"),
+      successful: false,
+      isDisabled: false,
     };
   },
-  components: { SideNav },
+  components: { SideNav, successful },
   methods: {
     transfer() {
       this.$refs.btn.textContent = "Sending...";
+      this.isDisabled = true;
       let config = {
         headers: {
           "Content-Type": "application/json",
@@ -54,22 +59,33 @@ export default {
       let details = {
         amount: `${this.amount}`,
         reason: `${this.reason}`,
-        tags: `${this.username}`,
+        tag: `${this.username}`,
       };
 
       axios
         .post(this.link, details, config)
         .then((response) => {
           console.log(response);
-          this.$refs.btn.textContent = "Submit";
+          if (response.status === 202) {
+            this.successful = true;
+          }
+          this.$router.push("/dashboard");
         })
         .catch((err) => {
           console.log(err);
+          this.error = "There is an error in your input";
+          this.username = "";
+          this.amount = "";
+          this.reason = "";
           this.$refs.btn.textContent = "Submit";
+          this.isDisabled = false;
         });
     },
     toggleMenu() {
       document.getElementById("HyperMenu").classList.toggle("show");
+    },
+    closePopup() {
+      this.successful = false;
     },
   },
   created() {
@@ -101,6 +117,9 @@ export default {
       display: none;
     }
     form {
+      .eroror {
+        color: red;
+      }
       .title {
         text-align: center;
         padding-bottom: 20px;
