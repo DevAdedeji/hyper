@@ -82,6 +82,9 @@ export default {
   },
   components: { SideNav },
   created() {
+    if (!this.token) {
+      this.$router.push("/login");
+    }
     document.title = "Dashboard || Hyper";
   },
 };
