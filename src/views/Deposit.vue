@@ -7,25 +7,25 @@
         <img src="../assets/icon-hamburger.svg" @click="toggleMenu" />
       </div>
       <form @submit.prevent="transfer">
-        <div class="title">Transfer money using only recipient's username</div>
-        <div class="username">
-          <label for="Username">Username:</label>
-          <input type="text" v-model="username" required />
-        </div>
+        <div class="title">Deposit money into your account</div>
+
         <div class="amount">
           <label for="Amount">Amount:</label>
           <input type="tel" v-model="amount" required />
         </div>
-        <div class="reason">
-          <label for="Reason">Reason:</label>
-          <textarea cols="30" rows="5" v-model="reason"></textarea>
-        </div>
+
         <p class="error" v-show="error.length > 0">{{ error }}</p>
         <button type="submit" ref="btn" :disabled="isDisabled">Submit</button>
       </form>
     </div>
   </div>
-  <successful v-if="successful" @closePopUp="closePopup" />
+  <div class="popup" v-if="successful">
+    <div>
+      <img src="../assets/close.png" @click="close" />
+      <a :href="message" target="_blank" id="payStackLink">{{ message }}</a>
+      <button @click="copyUrl" id="copy">Copy URL</button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -35,13 +35,12 @@ import axios from "axios";
 export default {
   data() {
     return {
-      username: "",
-      reason: "",
       amount: "",
       error: "",
-      link: process.env.VUE_APP_ENDPOINT + "trans",
+      link: process.env.VUE_APP_ENDPOINT + "link",
       token: localStorage.getItem("hyperToken"),
       successful: false,
+      message: "",
       isDisabled: false,
     };
   },
@@ -65,20 +64,21 @@ export default {
       axios
         .post(this.link, details, config)
         .then((response) => {
-          if (response.status === 202) {
+          console.log(response);
+          if (response.status === 201) {
             this.successful = true;
+            this.message = response.data.message;
           }
-          this.username = "";
+
           this.amount = "";
-          this.reason = "";
+
           this.$refs.btn.textContent = "Submit";
         })
         .catch((err) => {
           console.log(err);
           this.error = "There is an error in your input";
-          this.username = "";
+
           this.amount = "";
-          this.reason = "";
           this.$refs.btn.textContent = "Submit";
           this.isDisabled = false;
         });
@@ -86,7 +86,13 @@ export default {
     toggleMenu() {
       document.getElementById("HyperMenu").classList.toggle("show");
     },
-    closePopup() {
+    copyUrl() {
+      var copyText = document.getElementById("payStackLink").textContent;
+      navigator.clipboard.writeText(copyText).then(() => {
+        document.getElementById("copy").textContent = "Copied";
+      });
+    },
+    close() {
       this.successful = false;
     },
   },
@@ -161,6 +167,45 @@ export default {
         cursor: pointer;
         border-radius: 5px;
       }
+    }
+  }
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  div {
+    background: #fff;
+    width: 50%;
+    height: 50%;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    img {
+      cursor: pointer;
+    }
+    a {
+      color: #2e6ae9;
+    }
+    button {
+      border: none;
+      outline: none;
+      background-color: #2e6ae9;
+      border-radius: 5px;
+      color: #fff;
+      padding: 10px;
+      cursor: pointer;
     }
   }
 }

@@ -22,6 +22,12 @@
           </a>
         </li>
         <li>
+          <a href="/deposit">
+            <img src="../assets/money.png" />
+            <p>Deposit</p>
+          </a>
+        </li>
+        <li>
           <p class="logout" @click="logout">
             <img src="../assets/settings.png" />
             <p>Logout</p>
@@ -73,7 +79,7 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 20px;
+      gap: 10px;
       li {
         list-style: none;
         padding: 30px 0;

@@ -32,6 +32,11 @@ const routes = [
     name: 'Transfer',
     component: () => import('../views/Transfer.vue')
   },
+  {
+    path: '/deposit',
+    name: 'Deposit',
+    component: () => import('../views/Deposit.vue')
+  },
 ]
 
 const router = createRouter({
