@@ -11,7 +11,7 @@
         <div class="close">
           <!-- Transaction type icon -->
           <div
-            class="icon-container credit"
+            class="icon-container"
             :class="username === item.send ? 'debit' : 'credit'"
           ></div>
           <!-- Receiver/Sender -->
