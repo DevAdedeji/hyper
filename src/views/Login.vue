@@ -100,6 +100,7 @@ export default {
         .then((response) => {
           const user_token = response.data.token;
           localStorage.setItem("hyperToken", user_token);
+          localStorage.setItem("hyperUser", this.userInfo.username);
           if (response.data.profile_empty === true) {
             this.$router.push("/Create_Profile");
           } else {

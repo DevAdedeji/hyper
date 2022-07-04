@@ -18,6 +18,7 @@
             <p class="bal">₦{{ balance.toLocaleString() }}</p>
           </div>
         </div>
+        <Notifications />
       </div>
     </section>
   </div>
@@ -26,7 +27,7 @@
 <script>
 import axios from "axios";
 import SideNav from "../components/SideNav.vue";
-
+import Notifications from "../components/Notifications.vue";
 export default {
   data() {
     return {
@@ -80,11 +81,8 @@ export default {
   mounted() {
     this.getDetails();
   },
-  components: { SideNav },
+  components: { SideNav, Notifications },
   created() {
-    if (!this.token) {
-      this.$router.push("/login");
-    }
     document.title = "Dashboard || Hyper";
   },
 };

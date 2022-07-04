@@ -17,12 +17,6 @@ import Footer from "../components/Footer.vue";
 
 export default {
   components: { Header, About, Features, Newsletter, Footer },
-  created() {
-    let token = localStorage.getItem("hyperToken");
-    if (token) {
-      this.$router.push("/dashboard");
-    }
-  },
 };
 </script>
 

@@ -20,28 +20,77 @@ const routes = [
   {
     path: '/Create_Profile',
     name: 'Create Profile',
-    component: () => import('../views/ProfileForm.vue')
+    component: () => import('../views/ProfileForm.vue'),
+    meta:{
+      AuthRequired: true,
+    }
   },
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: () => import('../views/Dashboard.vue')
+    component: () => import('../views/Dashboard.vue'),
+    meta:{
+      AuthRequired: true,
+    }
   },
   {
     path: '/transfer',
     name: 'Transfer',
-    component: () => import('../views/Transfer.vue')
+    component: () => import('../views/Transfer.vue'),
+    meta:{
+      AuthRequired: true,
+    }
   },
   {
     path: '/deposit',
     name: 'Deposit',
-    component: () => import('../views/Deposit.vue')
+    component: () => import('../views/Deposit.vue'),
+    meta:{
+      AuthRequired: true,
+    }
+  },
+  {
+    path: '/notifications',
+    name: 'Notifications',
+    component: () => import('../views/Notifications.vue'),
+    meta:{
+      AuthRequired: true,
+    }
   },
 ]
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+router.beforeEach((to, from, next)=>{
+  let token = localStorage.getItem("hyperToken");
+  if(to.meta.AuthRequired){
+    if(!token){
+      next({
+        name: 'Login'
+      })
+    }else{
+      next()
+    }
+  }
+  else if(to.name ==="Home"){
+    if(token){
+      next({
+        name: 'Dashboard'
+      })
+    }else{
+      next()
+    }
+  }
+  else{
+    next()
+  }
+  
+})
+
+
 
 export default router

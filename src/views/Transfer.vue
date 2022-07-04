@@ -91,9 +91,6 @@ export default {
     },
   },
   created() {
-    if (!this.token) {
-      this.$router.push("/login");
-    }
     document.title = "Transfer Money || Hyper";
   },
 };
