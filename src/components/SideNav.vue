@@ -43,6 +43,7 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("hyperToken");
+      localStorage.removeItem("hyperUser");
       window.location.replace("/");
     },
   },
