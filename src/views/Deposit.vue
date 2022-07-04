@@ -110,7 +110,6 @@ export default {
   color: #fff;
   display: flex;
   align-items: center;
-  justify-content: center;
   .con {
     width: 100%;
     display: flex;
@@ -207,7 +206,7 @@ export default {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 810px) {
   .main {
     min-height: 100vh;
     align-items: flex-start;

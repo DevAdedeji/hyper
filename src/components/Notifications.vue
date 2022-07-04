@@ -2,7 +2,7 @@
   <section>
     <div class="title">
       <h1>Recent Transactions</h1>
-      <!-- <a href="/notifications">See All</a> -->
+      <a href="/notifications">See All</a>
     </div>
     <!-- Transactions container -->
     <div class="transactions" v-for="(item, index) in data" :key="index">

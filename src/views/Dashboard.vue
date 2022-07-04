@@ -135,6 +135,7 @@ export default {
     position: relative;
     .main {
       width: 70%;
+      margin-left: auto;
       padding: 20px 0;
       .welcome {
         color: #fff;
@@ -184,7 +185,7 @@ export default {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 810px) {
   .body {
     width: 100%;
     .dashboard {

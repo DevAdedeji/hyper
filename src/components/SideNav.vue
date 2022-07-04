@@ -28,6 +28,12 @@
           </a>
         </li>
         <li>
+          <a href="/notifications">
+            <img src="../assets/notify.png" />
+            <p>Notifications</p>
+          </a>
+        </li>
+        <li>
           <p class="logout" @click="logout">
             <img src="../assets/settings.png" />
             <p>Logout</p>
@@ -53,11 +59,13 @@ export default {
 <style lang="scss" scoped>
 .container {
   width: 20%;
-  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  max-height: 100vh;
   background-color: #0b0547;
   display: flex;
   flex-direction: column;
-  align-items: center;
   border-right: 2px #46144c solid;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
   .title {
@@ -68,13 +76,11 @@ export default {
     font-size: 40px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left: 30px;
   }
   nav {
     display: flex;
     flex-direction: column;
-    align-items: center;
-
     height: 100%;
     ul {
       display: flex;
@@ -83,7 +89,7 @@ export default {
       gap: 10px;
       li {
         list-style: none;
-        padding: 30px 0;
+        padding: 25px 0;
         .logout {
           color: #fff;
           font-size: 20px;
@@ -120,6 +126,9 @@ export default {
     }
     nav {
       ul {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         gap: 30px;
         li {
           padding: 20px 0;
@@ -148,6 +157,12 @@ export default {
   }
 }
 
+@media (max-width: 810px) {
+  .container {
+    display: none;
+  }
+}
+
 @media (max-width: 651px) {
   .container {
     .title {
@@ -157,7 +172,7 @@ export default {
       ul {
         gap: 30px;
         li {
-          padding: 20px 0;
+          padding: 15px 0;
           .logout p,
           a {
             font-size: 15px;
@@ -167,7 +182,7 @@ export default {
     }
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 810px) {
   .container {
     display: none;
   }
