@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const link = "https://compaym.herokuapp.com/api/register";
+const link = "https://elp-simeon2001.koyeb.app/api/register";
 
 
 
