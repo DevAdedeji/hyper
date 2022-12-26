@@ -1,5 +1,5 @@
 import axios from "axios";
-const link = 'https://compaym.herokuapp.com/api/token'
+const link = 'https://elp-simeon2001.koyeb.app/api/token'
 
 async function login(user){
     return await axios.post(link, {
